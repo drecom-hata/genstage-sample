@@ -7,7 +7,7 @@ defmodule MultipleConsumers.Application do
 
   def start(_type, _args) do
     children = [
-      BufferProducer,
+      {BufferProducer, %{max_demand: 5, interval: 5000}},
       CheckConsumerSupervisor,
     ]
 
