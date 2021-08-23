@@ -1,9 +1,9 @@
-defmodule MultipleConsumers.MixProject do
+defmodule RateLimitProducer.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :multiple_consumers,
+      app: :rate_limit_producer,
       version: "0.1.0",
       elixir: "~> 1.9",
       start_permanent: Mix.env() == :prod,
@@ -15,7 +15,7 @@ defmodule MultipleConsumers.MixProject do
   def application do
     [
       extra_applications: [:logger],
-      mod: {MultipleConsumers.Application, []}
+      mod: {RateLimitProducer.Application, []}
     ]
   end
 

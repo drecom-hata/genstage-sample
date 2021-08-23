@@ -1,4 +1,4 @@
-defmodule BufferProducer do
+defmodule RateLimitBufferProducer do
   use GenStage
   require Logger
 
@@ -10,7 +10,7 @@ defmodule BufferProducer do
   end
 
   def init(opts) do
-    Logger.info("BufferProducer init")
+    Logger.info("RateLimitBufferProducer init")
 
     max_demand = opts[:max_demand] || @default_max_demand
     interval = opts[:interval] || @default_interval
@@ -27,7 +27,7 @@ defmodule BufferProducer do
   end
 
   def handle_demand(demand, state) do
-    Logger.debug("BufferProducer received demand for #{demand}")
+    Logger.debug("RateLimitBufferProducer received demand for #{demand}")
 
     {:noreply, [], state}
   end
@@ -37,7 +37,7 @@ defmodule BufferProducer do
   end
 
   def handle_cast({:items, items}, state) do
-    Logger.debug("BufferProducer handle_cast({:items, #{inspect(items)}}, #{inspect(state)})")
+    Logger.debug("RateLimitBufferProducer handle_cast({:items, #{inspect(items)}}, #{inspect(state)})")
 
     len = length(items)
     if len <= state.pending do
@@ -45,7 +45,7 @@ defmodule BufferProducer do
 
       {:noreply, items, state}
     else
-      Logger.info("BufferProducer handle_cast: discarded #{len - state.pending} items")
+      Logger.info("RateLimitBufferProducer handle_cast: discarded #{len - state.pending} items")
 
       items = items |> Enum.slice(0, state.pending)
       state = %{state | pending: 0}
@@ -55,7 +55,7 @@ defmodule BufferProducer do
   end
 
   def handle_info(:timeout, state) do
-    Logger.debug("BufferProducer timeout")
+    Logger.debug("RateLimitBufferProducer timeout")
 
     schedule_timeout(state.interval)
 

@@ -1,2 +1,0 @@
-defmodule MultipleConsumers do
-end

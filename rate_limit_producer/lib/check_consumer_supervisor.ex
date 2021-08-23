@@ -19,7 +19,7 @@ defmodule CheckConsumerSupervisor do
     opts = [
       strategy: :one_for_one,
       subscribe_to: [
-        {BufferProducer, max_demand: System.schedulers_online()}
+        {RateLimitBufferProducer, max_demand: System.schedulers_online()}
       ]
     ]
 

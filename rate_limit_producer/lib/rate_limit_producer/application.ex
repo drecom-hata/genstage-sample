@@ -1,4 +1,4 @@
-defmodule MultipleConsumers.Application do
+defmodule RateLimitProducer.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
@@ -7,13 +7,13 @@ defmodule MultipleConsumers.Application do
 
   def start(_type, _args) do
     children = [
-      {BufferProducer, %{max_demand: 5, interval: 5000}},
+      {RateLimitBufferProducer, %{max_demand: 5, interval: 5000}},
       CheckConsumerSupervisor,
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: MultipleConsumers.Supervisor]
+    opts = [strategy: :one_for_one, name: RateLimitProducer.Supervisor]
     Supervisor.start_link(children, opts)
   end
 end
