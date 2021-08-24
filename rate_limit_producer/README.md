@@ -32,7 +32,7 @@ $ mix compile
 $ iex -S mix
 ...
 
-iex> 1..4 |> Enum.to_list() |> Enum.map(&Integer.to_string/1) |> RateLimitBufferProducer.push()
+iex> 1..4 |> Enum.map(&Integer.to_string/1) |> RateLimitBufferProducer.push()
 :ok
 11:01:55.715 [debug] RateLimitBufferProducer handle_cast({:items, ["1", "2", "3", "4"]}, %{interval: 5000, max_demand: 5, pending: 5})
 11:01:55.717 [debug] CheckConsumer received 1
@@ -40,7 +40,7 @@ iex> 1..4 |> Enum.to_list() |> Enum.map(&Integer.to_string/1) |> RateLimitBuffer
 11:01:55.724 [debug] CheckConsumer received 3
 11:01:55.724 [debug] CheckConsumer received 4
 
-iex> 1..4 |> Enum.to_list() |> Enum.map(&Integer.to_string/1) |> RateLimitBufferProducer.push()
+iex> 1..4 |> Enum.map(&Integer.to_string/1) |> RateLimitBufferProducer.push()
 :ok
 11:01:57.566 [debug] RateLimitBufferProducer handle_cast({:items, ["1", "2", "3", "4"]}, %{interval: 5000, max_demand: 5, pending: 1})
 11:01:57.566 [info]  RateLimitBufferProducer handle_cast: discarded 3 items
